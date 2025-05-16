@@ -13,17 +13,18 @@ void next_frame(char cells[ROWS][COLUMNS]);
 
 int main(){
 
+    // a glider
     char cells[ROWS][COLUMNS] = {
-        {ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, ALIVE, ALIVE},
-        {ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, ALIVE, ALIVE},
+        {DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD},
+        {DEAD, DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD},
+        {ALIVE, ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD},
         {DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD},
         {DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD},
-        {DEAD, DEAD, DEAD, ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD},
-        {DEAD, DEAD, DEAD, ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD},
         {DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD},
         {DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD},
-        {ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, ALIVE, ALIVE},
-        {ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, ALIVE, ALIVE},
+        {DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD},
+        {DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD},
+        {DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD},
     };
 
     int i= 0;
@@ -127,11 +128,11 @@ void next_frame(char cells[ROWS][COLUMNS]){
                 // wrap around
             }
 
-            // printf("Cell %d,%d has %d alive n\n", i, j, alive_n);
+            // printf("%d,%d has %d alive n\n", i, j, alive_n);
             if(cells[i][j] == ALIVE){
-                if(alive_n < 2) { changes[i][j] = true; continue; }
-                if(alive_n < 3) { changes[i][j] = false; continue; }
-                if(alive_n > 3) { changes[i][j] = true; continue; }
+                if(alive_n < 2) changes[i][j] = true;
+                if(alive_n >= 2 && alive_n <= 3) changes[i][j] = false;
+                if(alive_n > 3) changes[i][j] = true;
             }
             if(cells[i][j] == DEAD){
                 if(alive_n == 3) {
