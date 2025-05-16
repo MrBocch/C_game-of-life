@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <wchar.h>
 #include <stdbool.h>
-#include <unistd.h>
+#include <time.h>
 
 #define ROWS 10
 #define COLUMNS 10
-#define ALIVE '@'
-#define DEAD '_'
+#define ALIVE '#'
+#define DEAD '.'
 
 void clear_screen();
 void print_board(char cells[ROWS][COLUMNS]);
@@ -27,7 +28,10 @@ int main(){
         {DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD},
     };
 
-    int i= 0;
+    struct timespec ts;
+    ts.tv_sec = 0;
+    ts.tv_nsec = 500000000; // nanoseconds (0.5 second)
+    int i = 0;
     while(1){
         // how do I clear the screen
         // so that I can print the board in place
@@ -37,7 +41,7 @@ int main(){
         print_board(cells);
         i += 1;
         next_frame(cells);
-        sleep(1);
+        nanosleep(&ts, NULL);
         // if(i == 4) break;
 
     }
