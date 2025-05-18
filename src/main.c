@@ -3,11 +3,12 @@
 #include <stdbool.h>
 #include <time.h>
 
-#define ROWS 10
-#define COLUMNS 10
-#define ALIVE '#'
-#define DEAD '.'
-
+#define ROWS     10
+#define COLUMNS  10
+#define ALIVE    '#'
+#define DEAD     '.'
+#define SECONDS  0
+#define NANOSEC  100000000
 void clear_screen();
 void print_board(char cells[ROWS][COLUMNS]);
 void next_frame(char cells[ROWS][COLUMNS]);
@@ -29,21 +30,19 @@ int main(){
     };
 
     struct timespec ts;
-    ts.tv_sec = 0;
-    ts.tv_nsec = 500000000; // nanoseconds (0.5 second)
+    ts.tv_sec = SECONDS;
+    ts.tv_nsec = NANOSEC;
     int i = 0;
     while(1){
-        // how do I clear the screen
-        // so that I can print the board in place
-        // see a cool animation
+        // clears screen
         printf("\033[2J\033[H");
+
         printf("Generation: %d\n", i);
         print_board(cells);
-        i += 1;
         next_frame(cells);
-        nanosleep(&ts, NULL);
-        // if(i == 4) break;
 
+        i += 1;
+        nanosleep(&ts, NULL);
     }
 
     return 0;
