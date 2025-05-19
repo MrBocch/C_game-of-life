@@ -1,3 +1,3 @@
 # Conway's Game of Life
 
-<img src="gol.mp4">
+<img src="gol.webm">
